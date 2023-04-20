@@ -9,13 +9,44 @@
 /* Begin PBXBuildFile section */
 		04C1117B29F0F35B00119130 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1117A29F0F35B00119130 /* AppDelegate.swift */; };
 		04C1117D29F0F35B00119130 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1117C29F0F35B00119130 /* SceneDelegate.swift */; };
-		04C1117F29F0F35B00119130 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1117E29F0F35B00119130 /* ViewController.swift */; };
+		04C1117F29F0F35B00119130 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1117E29F0F35B00119130 /* MainVC.swift */; };
 		04C1118229F0F35B00119130 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04C1118029F0F35B00119130 /* Main.storyboard */; };
 		04C1118429F0F35C00119130 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04C1118329F0F35C00119130 /* Assets.xcassets */; };
 		04C1118729F0F35C00119130 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04C1118529F0F35C00119130 /* LaunchScreen.storyboard */; };
 		04C1119229F0F35C00119130 /* WeatherfulTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1119129F0F35C00119130 /* WeatherfulTests.swift */; };
 		04C1119C29F0F35C00119130 /* WeatherfulUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1119B29F0F35C00119130 /* WeatherfulUITests.swift */; };
 		04C1119E29F0F35C00119130 /* WeatherfulUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1119D29F0F35C00119130 /* WeatherfulUITestsLaunchTests.swift */; };
+		04C111AE29F11A4D00119130 /* UIView+Weatherful.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C111AD29F11A4D00119130 /* UIView+Weatherful.swift */; };
+		04C111B029F11A7900119130 /* UIColor+Weatherful.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C111AF29F11A7900119130 /* UIColor+Weatherful.swift */; };
+		04C111B529F1242A00119130 /* UILabel+Weatherful.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C111B429F1242A00119130 /* UILabel+Weatherful.swift */; };
+		04C111B729F1248300119130 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C111B629F1248300119130 /* CustomFonts.swift */; };
+		04C111C229F1261C00119130 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111B929F1261B00119130 /* SF-Pro-Rounded-Bold.otf */; };
+		04C111C329F1261C00119130 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111B929F1261B00119130 /* SF-Pro-Rounded-Bold.otf */; };
+		04C111C429F1261C00119130 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111B929F1261B00119130 /* SF-Pro-Rounded-Bold.otf */; };
+		04C111C529F1261C00119130 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BA29F1261B00119130 /* SF-Pro-Rounded-Regular.otf */; };
+		04C111C629F1261C00119130 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BA29F1261B00119130 /* SF-Pro-Rounded-Regular.otf */; };
+		04C111C729F1261C00119130 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BA29F1261B00119130 /* SF-Pro-Rounded-Regular.otf */; };
+		04C111C829F1261C00119130 /* SF-Pro-Rounded-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BB29F1261C00119130 /* SF-Pro-Rounded-Thin.otf */; };
+		04C111C929F1261C00119130 /* SF-Pro-Rounded-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BB29F1261C00119130 /* SF-Pro-Rounded-Thin.otf */; };
+		04C111CA29F1261C00119130 /* SF-Pro-Rounded-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BB29F1261C00119130 /* SF-Pro-Rounded-Thin.otf */; };
+		04C111CB29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BC29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf */; };
+		04C111CC29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BC29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf */; };
+		04C111CD29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BC29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf */; };
+		04C111CE29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BD29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf */; };
+		04C111CF29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BD29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf */; };
+		04C111D029F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BD29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf */; };
+		04C111D129F1261C00119130 /* SF-Pro-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BE29F1261C00119130 /* SF-Pro-Rounded-Light.otf */; };
+		04C111D229F1261C00119130 /* SF-Pro-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BE29F1261C00119130 /* SF-Pro-Rounded-Light.otf */; };
+		04C111D329F1261C00119130 /* SF-Pro-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BE29F1261C00119130 /* SF-Pro-Rounded-Light.otf */; };
+		04C111D429F1261C00119130 /* SF-Pro-Rounded-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BF29F1261C00119130 /* SF-Pro-Rounded-Semibold.otf */; };
+		04C111D529F1261C00119130 /* SF-Pro-Rounded-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BF29F1261C00119130 /* SF-Pro-Rounded-Semibold.otf */; };
+		04C111D629F1261C00119130 /* SF-Pro-Rounded-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111BF29F1261C00119130 /* SF-Pro-Rounded-Semibold.otf */; };
+		04C111D729F1261C00119130 /* SF-Pro-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111C029F1261C00119130 /* SF-Pro-Rounded-Medium.otf */; };
+		04C111D829F1261C00119130 /* SF-Pro-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111C029F1261C00119130 /* SF-Pro-Rounded-Medium.otf */; };
+		04C111D929F1261C00119130 /* SF-Pro-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111C029F1261C00119130 /* SF-Pro-Rounded-Medium.otf */; };
+		04C111DA29F1261C00119130 /* SF-Pro-Rounded-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111C129F1261C00119130 /* SF-Pro-Rounded-Black.otf */; };
+		04C111DB29F1261C00119130 /* SF-Pro-Rounded-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111C129F1261C00119130 /* SF-Pro-Rounded-Black.otf */; };
+		04C111DC29F1261C00119130 /* SF-Pro-Rounded-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 04C111C129F1261C00119130 /* SF-Pro-Rounded-Black.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +70,7 @@
 		04C1117729F0F35B00119130 /* Weatherful.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weatherful.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C1117A29F0F35B00119130 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04C1117C29F0F35B00119130 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		04C1117E29F0F35B00119130 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		04C1117E29F0F35B00119130 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		04C1118129F0F35B00119130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04C1118329F0F35C00119130 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04C1118629F0F35C00119130 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +80,19 @@
 		04C1119729F0F35C00119130 /* WeatherfulUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherfulUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		04C1119B29F0F35C00119130 /* WeatherfulUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherfulUITests.swift; sourceTree = "<group>"; };
 		04C1119D29F0F35C00119130 /* WeatherfulUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherfulUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		04C111AD29F11A4D00119130 /* UIView+Weatherful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Weatherful.swift"; sourceTree = "<group>"; };
+		04C111AF29F11A7900119130 /* UIColor+Weatherful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Weatherful.swift"; sourceTree = "<group>"; };
+		04C111B429F1242A00119130 /* UILabel+Weatherful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Weatherful.swift"; sourceTree = "<group>"; };
+		04C111B629F1248300119130 /* CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		04C111B929F1261B00119130 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
+		04C111BA29F1261B00119130 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
+		04C111BB29F1261C00119130 /* SF-Pro-Rounded-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Thin.otf"; sourceTree = "<group>"; };
+		04C111BC29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Heavy.otf"; sourceTree = "<group>"; };
+		04C111BD29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Ultralight.otf"; sourceTree = "<group>"; };
+		04C111BE29F1261C00119130 /* SF-Pro-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Light.otf"; sourceTree = "<group>"; };
+		04C111BF29F1261C00119130 /* SF-Pro-Rounded-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Semibold.otf"; sourceTree = "<group>"; };
+		04C111C029F1261C00119130 /* SF-Pro-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Medium.otf"; sourceTree = "<group>"; };
+		04C111C129F1261C00119130 /* SF-Pro-Rounded-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Black.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +145,11 @@
 			children = (
 				04C1117A29F0F35B00119130 /* AppDelegate.swift */,
 				04C1117C29F0F35B00119130 /* SceneDelegate.swift */,
-				04C1117E29F0F35B00119130 /* ViewController.swift */,
-				04C1118029F0F35B00119130 /* Main.storyboard */,
+				04C111B229F11AE000119130 /* Model */,
+				04C111B129F11AD600119130 /* View */,
+				04C111B329F11AE300119130 /* Controller */,
+				04C111AA29F11A2400119130 /* Extensions */,
+				04C111B829F1258800119130 /* Fonts */,
 				04C1118329F0F35C00119130 /* Assets.xcassets */,
 				04C1118529F0F35C00119130 /* LaunchScreen.storyboard */,
 				04C1118829F0F35C00119130 /* Info.plist */,
@@ -125,6 +172,56 @@
 				04C1119D29F0F35C00119130 /* WeatherfulUITestsLaunchTests.swift */,
 			);
 			path = WeatherfulUITests;
+			sourceTree = "<group>";
+		};
+		04C111AA29F11A2400119130 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				04C111AF29F11A7900119130 /* UIColor+Weatherful.swift */,
+				04C111AD29F11A4D00119130 /* UIView+Weatherful.swift */,
+				04C111B429F1242A00119130 /* UILabel+Weatherful.swift */,
+				04C111B629F1248300119130 /* CustomFonts.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		04C111B129F11AD600119130 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04C1118029F0F35B00119130 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		04C111B229F11AE000119130 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04C111B329F11AE300119130 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04C1117E29F0F35B00119130 /* MainVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04C111B829F1258800119130 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				04C111C129F1261C00119130 /* SF-Pro-Rounded-Black.otf */,
+				04C111B929F1261B00119130 /* SF-Pro-Rounded-Bold.otf */,
+				04C111BC29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf */,
+				04C111BE29F1261C00119130 /* SF-Pro-Rounded-Light.otf */,
+				04C111C029F1261C00119130 /* SF-Pro-Rounded-Medium.otf */,
+				04C111BA29F1261B00119130 /* SF-Pro-Rounded-Regular.otf */,
+				04C111BF29F1261C00119130 /* SF-Pro-Rounded-Semibold.otf */,
+				04C111BB29F1261C00119130 /* SF-Pro-Rounded-Thin.otf */,
+				04C111BD29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,8 +329,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				04C1118729F0F35C00119130 /* LaunchScreen.storyboard in Resources */,
+				04C111D129F1261C00119130 /* SF-Pro-Rounded-Light.otf in Resources */,
+				04C111DA29F1261C00119130 /* SF-Pro-Rounded-Black.otf in Resources */,
+				04C111C529F1261C00119130 /* SF-Pro-Rounded-Regular.otf in Resources */,
+				04C111C229F1261C00119130 /* SF-Pro-Rounded-Bold.otf in Resources */,
+				04C111C829F1261C00119130 /* SF-Pro-Rounded-Thin.otf in Resources */,
 				04C1118429F0F35C00119130 /* Assets.xcassets in Resources */,
+				04C111CB29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf in Resources */,
+				04C111D729F1261C00119130 /* SF-Pro-Rounded-Medium.otf in Resources */,
+				04C111CE29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf in Resources */,
 				04C1118229F0F35B00119130 /* Main.storyboard in Resources */,
+				04C111D429F1261C00119130 /* SF-Pro-Rounded-Semibold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +347,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C111C929F1261C00119130 /* SF-Pro-Rounded-Thin.otf in Resources */,
+				04C111D229F1261C00119130 /* SF-Pro-Rounded-Light.otf in Resources */,
+				04C111C329F1261C00119130 /* SF-Pro-Rounded-Bold.otf in Resources */,
+				04C111D829F1261C00119130 /* SF-Pro-Rounded-Medium.otf in Resources */,
+				04C111CC29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf in Resources */,
+				04C111CF29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf in Resources */,
+				04C111D529F1261C00119130 /* SF-Pro-Rounded-Semibold.otf in Resources */,
+				04C111C629F1261C00119130 /* SF-Pro-Rounded-Regular.otf in Resources */,
+				04C111DB29F1261C00119130 /* SF-Pro-Rounded-Black.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +363,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C111CA29F1261C00119130 /* SF-Pro-Rounded-Thin.otf in Resources */,
+				04C111D329F1261C00119130 /* SF-Pro-Rounded-Light.otf in Resources */,
+				04C111C429F1261C00119130 /* SF-Pro-Rounded-Bold.otf in Resources */,
+				04C111D929F1261C00119130 /* SF-Pro-Rounded-Medium.otf in Resources */,
+				04C111CD29F1261C00119130 /* SF-Pro-Rounded-Heavy.otf in Resources */,
+				04C111D029F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf in Resources */,
+				04C111D629F1261C00119130 /* SF-Pro-Rounded-Semibold.otf in Resources */,
+				04C111C729F1261C00119130 /* SF-Pro-Rounded-Regular.otf in Resources */,
+				04C111DC29F1261C00119130 /* SF-Pro-Rounded-Black.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +382,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04C1117F29F0F35B00119130 /* ViewController.swift in Sources */,
+				04C1117F29F0F35B00119130 /* MainVC.swift in Sources */,
+				04C111B529F1242A00119130 /* UILabel+Weatherful.swift in Sources */,
+				04C111B729F1248300119130 /* CustomFonts.swift in Sources */,
+				04C111B029F11A7900119130 /* UIColor+Weatherful.swift in Sources */,
+				04C111AE29F11A4D00119130 /* UIView+Weatherful.swift in Sources */,
 				04C1117B29F0F35B00119130 /* AppDelegate.swift in Sources */,
 				04C1117D29F0F35B00119130 /* SceneDelegate.swift in Sources */,
 			);
