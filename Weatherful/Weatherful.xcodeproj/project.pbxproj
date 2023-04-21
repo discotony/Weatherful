@@ -55,6 +55,8 @@
 		04C1122E29F22AEA00119130 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122D29F22AEA00119130 /* WeatherData.swift */; };
 		04C1123029F23F1E00119130 /* ForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122F29F23F1E00119130 /* ForecastData.swift */; };
 		04C1123229F2687100119130 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1123129F2687100119130 /* Forecast.swift */; };
+		04C1123429F3017D00119130 /* UIImage+Weatherful.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1123329F3017D00119130 /* UIImage+Weatherful.swift */; };
+		04C1123629F3082100119130 /* Sring+Weatherful.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1123529F3082100119130 /* Sring+Weatherful.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +111,8 @@
 		04C1122D29F22AEA00119130 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		04C1122F29F23F1E00119130 /* ForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastData.swift; sourceTree = "<group>"; };
 		04C1123129F2687100119130 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		04C1123329F3017D00119130 /* UIImage+Weatherful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Weatherful.swift"; sourceTree = "<group>"; };
+		04C1123529F3082100119130 /* Sring+Weatherful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sring+Weatherful.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +202,8 @@
 				04C111AD29F11A4D00119130 /* UIView+Weatherful.swift */,
 				04C111B429F1242A00119130 /* UILabel+Weatherful.swift */,
 				04C111B629F1248300119130 /* CustomFonts.swift */,
+				04C1123329F3017D00119130 /* UIImage+Weatherful.swift */,
+				04C1123529F3082100119130 /* Sring+Weatherful.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -413,7 +419,9 @@
 				04C1123029F23F1E00119130 /* ForecastData.swift in Sources */,
 				04C1122929F22AB100119130 /* WeatherManager.swift in Sources */,
 				04C111B729F1248300119130 /* CustomFonts.swift in Sources */,
+				04C1123629F3082100119130 /* Sring+Weatherful.swift in Sources */,
 				04C111B029F11A7900119130 /* UIColor+Weatherful.swift in Sources */,
+				04C1123429F3017D00119130 /* UIImage+Weatherful.swift in Sources */,
 				04C111AE29F11A4D00119130 /* UIView+Weatherful.swift in Sources */,
 				04C1117B29F0F35B00119130 /* AppDelegate.swift in Sources */,
 				04C1122329F2162100119130 /* DailyWeatherCell.swift in Sources */,
@@ -601,8 +609,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weatherful/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your current location to get the most accurate weather data.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -630,8 +639,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Weatherful/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your current location to get the most accurate weather data.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
