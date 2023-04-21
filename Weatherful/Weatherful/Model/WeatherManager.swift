@@ -78,7 +78,7 @@ struct WeatherManager {
                 let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
                 let id = decodedData.weather[0].id
                 let cityName = decodedData.name
-                let weatherDescription = decodedData.weather[0].main
+                let weatherDescription = decodedData.weather[0].description.firstCapitalized
                 let temp = decodedData.main.temp
                 let temp_max = round(decodedData.main.temp_max * 10) / 10
                 let temp_min = round(decodedData.main.temp_min * 10) / 10
@@ -190,13 +190,21 @@ struct WeatherManager {
                     let dateString = convertDate(dateCode: dailyForecastData.dt)
                     let day = NSDate(timeIntervalSince1970: TimeInterval(dailyForecastData.dt)).description
                     let dayString = getDayOfWeekString(today: String(Array(day)[0...9]))
+                    let time = formatTime(time: String(Array(day)[11...15]))
                     print(dayString)
-                    
+                    print(dateString)
+                    print(day)
+                    print(time)
                     let conditionID = dailyForecastData.weather[0].id
                     let temp_max = round(dailyForecastData.main.temp_max * 10) / 10
                     let temp_min = round(dailyForecastData.main.temp_min * 10) / 10
                     
-                    let forecast = DailyForecastModel(date: dateString, day: dayString, conditionId: conditionID, max_temp: temp_max, min_temp: temp_min)
+                    let forecast = DailyForecastModel(date: dateString,
+                                                      day: dayString,
+                                                      time: time,
+                                                      conditionId: conditionID,
+                                                      max_temp: temp_max,
+                                                      min_temp: temp_min)
                     forecastArray.append(forecast)
                 }
                 return forecastArray
@@ -243,5 +251,15 @@ struct WeatherManager {
             print("Error fetching days")
             return "Day"
         }
+    }
+    
+    private func formatTime(time: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "H:mm"
+        let date12 = dateFormatter.date(from: time)!
+        
+        dateFormatter.dateFormat = "h:mm a"
+        let date22 = dateFormatter.string(from: date12)
+        return date22
     }
 }

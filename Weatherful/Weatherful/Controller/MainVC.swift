@@ -58,6 +58,8 @@ class MainVC: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         //        hideKeyboardWhenTappedAround()
+        
+        view.showBlurLoader()
     }
     
 //    func hideKeyboardWhenTappedAround() {
@@ -94,18 +96,17 @@ class MainVC: UIViewController {
         
         searchTextField.backgroundColor = UIColor.clear
         searchTextField.borderStyle = .none
-        searchTextField.tintColor = .customDarkGrey
+        searchTextField.tintColor = .placeholderGrey
         searchTextField.font = CustomFonts.captionMedium
         searchTextField.textColor = .customBlack
     }
     
     private func setUpConditionSection() {
         cityLabel.configure(font: CustomFonts.captionLarge!, color: .customBlack)
-        
-        
         currentTempLabel.configure(font: CustomFonts.titleXL!)
         conditionLabel.configure(font: CustomFonts.captionLarge!)
         maxMinTempLabel.configure(font: CustomFonts.captionLarge!)
+        
     }
     
     private func setUpDailyWeatherSection() {
@@ -207,7 +208,7 @@ extension MainVC: UITextFieldDelegate {
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { Timer in
             self.searchTextField.isHidden = false
         }
-        let newSearchFieldWidth = view.layer.frame.width - (resetButtonView.frame.width + 72 + 20 + safeAreaMargin)
+        let newSearchFieldWidth = view.layer.frame.width - (resetButtonView.frame.width + 72 + 12 + safeAreaMargin)
         
         self.searchButtonViewWidth.constant = CGFloat(newSearchButtonViewWidth)
         self.searchTextFieldWidth.constant = CGFloat(newSearchFieldWidth)
@@ -297,8 +298,8 @@ extension MainVC: UICollectionViewDataSource {
         }
         
         let forecast = forecastArray[indexPath.row]
-        cell.dayLabel.text = forecast.day + " " + forecast.date
-        cell.dateLabel.text = "3:00 PM"
+        cell.dateLabel.text = forecast.day + " " + forecast.date
+        cell.timeLabel.text = forecast.time
         cell.conditionImageView.image = UIImage(systemName: forecast.conditionName)
         cell.maxTempLabel.text = "\(forecast.max_temp)°F"
         cell.minTempLabel.text = "\(forecast.min_temp)°F"
@@ -329,12 +330,39 @@ extension MainVC: WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
         //        print(weather.temperature)
         DispatchQueue.main.async {
+            if weather.conditionName == "cloud_bolt" {
+                self.cityLabel.textColor = .customWhite
+                self.cityLabel.applyLabelShadow(isDarkText: false)
+                self.conditionLabel.textColor = .customWhite
+                self.conditionLabel.applyLabelShadow(isDarkText: false)
+                self.currentTempLabel.textColor = .customWhite
+                self.currentTempLabel.applyLabelShadow(isDarkText: false)
+                self.maxMinTempLabel.textColor = .customWhite
+                self.maxMinTempLabel.applyLabelShadow(isDarkText: false)
+            } else {
+                self.cityLabel.textColor = .customBlack
+                self.cityLabel.applyLabelShadow(isDarkText: true)
+                self.conditionLabel.textColor = .customBlack
+                self.conditionLabel.applyLabelShadow(isDarkText: true)
+                self.currentTempLabel.textColor = .customBlack
+                self.currentTempLabel.applyLabelShadow(isDarkText: true)
+                self.maxMinTempLabel.textColor = .customBlack
+                self.maxMinTempLabel.applyLabelShadow(isDarkText: true)
+            }
+            
             self.cityLabel.text = weather.cityName
             self.conditionLabel.text = weather.conditionDescription
             self.currentTempLabel.text = weather.tempString
             self.maxMinTempLabel.text = "H: \(weather.temp_max)°F  L: \(weather.temp_min)°F"
+//            self.backgroundImageView.image = UIImage(named: weather.conditionName)
+            self.backgroundImageView.image = UIImage.animatedGif(named: weather.conditionName)
             self.collapseSearchBar()
+            self.view.removeBluerLoader()
         }
+    }
+    
+    private func updateLabelColors(isDarkScreen: Bool) {
+        
     }
     
     func didUpdateForecast(_ weatherManager: WeatherManager, forecastArray: [DailyForecastModel]) {
@@ -351,7 +379,7 @@ extension MainVC: WeatherManagerDelegate {
         // Soemtimes, you might need to display the error message to the user for troubleshooting.
         print(error)
         DispatchQueue.main.async {
-            self.searchTextField.attributedPlaceholder = NSAttributedString(string: "Please enter a valid city name!", attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
+            self.searchTextField.attributedPlaceholder = NSAttributedString(string: " Please enter a valid city name!", attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
             self.animateWarningShake()
             self.searchTextField.becomeFirstResponder()
             Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { Timer in

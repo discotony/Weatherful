@@ -74,11 +74,11 @@
             <size key="customSize" width="151" height="182"/>
             <connections>
                 <outlet property="conditionImageView" destination="Ubj-pF-7jU" id="A4T-M7-Gz3"/>
-                <outlet property="dateLabel" destination="Zg0-bx-hhz" id="noJ-rD-sMz"/>
-                <outlet property="dayLabel" destination="NuB-uM-2yM" id="hRc-n7-qnU"/>
+                <outlet property="dateLabel" destination="NuB-uM-2yM" id="hRc-n7-qnU"/>
                 <outlet property="maxTempLabel" destination="Iex-75-Tvn" id="Q8L-Ue-d0P"/>
                 <outlet property="minTempLabel" destination="mqN-ou-CEZ" id="N0Y-5g-f4Q"/>
                 <outlet property="overlayView" destination="BAn-FE-S2b" id="7ZK-va-Zwm"/>
+                <outlet property="timeLabel" destination="Zg0-bx-hhz" id="noJ-rD-sMz"/>
             </connections>
             <point key="canvasLocation" x="16.030534351145036" y="65.492957746478879"/>
         </collectionViewCell>
