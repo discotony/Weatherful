@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainVC: UIViewController {
     
@@ -35,21 +36,31 @@ class MainVC: UIViewController {
     @IBOutlet weak var dailyWeatherCollectionView: UICollectionView!
     
     private var shouldCollapse = false
-
+    
     var dataArray = ["Sunday", "sun", "72°F", "40F°"]
-
+    var weatherManager = WeatherManager()
+    let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
         setUpPlaceHolders()
+        weatherManager.delegate = self
+        searchTextField.delegate = self
+        dailyWeatherCollectionView.dataSource = self
+        dailyWeatherCollectionView.delegate = self
+        
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
     }
-
+    
     private func setUpUI() {
         backgroundImageView.image = UIImage(named: "cloud.rain")
         backgroundImageView.contentMode = .scaleAspectFill
-//        backgroundImageView.applyBlurEffect()
+        //        backgroundImageView.applyBlurEffect()
         overlayView.backgroundColor = .clear
-
+        
         setUpHeaderSection()
         setUpConditionSection()
         setUpDailyWeatherSection()
@@ -90,7 +101,7 @@ class MainVC: UIViewController {
         
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(systemName: "calendar")?.withTintColor(.customBlack)
-
+        
         dailyWeatherHeaderLabel.configure(font: CustomFonts.captionMedium!)
         let headerTitle = NSMutableAttributedString(string: " Weekly Forecast")
         headerTitle.insert(NSAttributedString(attachment: imageAttachment), at: 0)
@@ -98,28 +109,22 @@ class MainVC: UIViewController {
         
         dailyWeatherHeaaderDivider.backgroundColor = .customBlack
         dailyWeatherHeaaderDivider.roundCorners(cornerRadius: 1)
-        
-        dailyWeatherCollectionView.dataSource = self
-        dailyWeatherCollectionView.delegate = self
+
         dailyWeatherCollectionView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellWithReuseIdentifier: K.cellIdentifier)
-       
+        
         dailyWeatherCollectionView.showsHorizontalScrollIndicator = false
         dailyWeatherCollectionView.isScrollEnabled = true
-//        dailyWeatherCollectionView.delaysContentTouches = false
+        //        dailyWeatherCollectionView.delaysContentTouches = false
         dailyWeatherCollectionView.collectionViewLayout = setFlowLayout()
-        
-        
-        
     }
     
     private func setFlowLayout() -> UICollectionViewFlowLayout {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-//        flowLayout.minimumLineSpacing = 160
-//        flowLayout.footerReferenceSize = CGSize(width: view.bounds.width, height: 0)
+        //        flowLayout.minimumLineSpacing = 160
+        //        flowLayout.footerReferenceSize = CGSize(width: view.bounds.width, height: 0)
         return flowLayout
     }
-    
     
     
     private func setUpPlaceHolders() {
@@ -129,10 +134,22 @@ class MainVC: UIViewController {
         maxMinTempLabel.text = "H: 75°F L: 56°F"
     }
     
-    // MARK: - UIActions
-    @IBAction func SearchLocationButtonPressed(_ sender: Any) {
-        animateSearchFieldView()
+    @IBAction func resetLocationButtonPressed(_ sender: UIButton) {
+        // Method 1: we could possibly call "locationManager.requestLocation()" again as it automatically triggers didUpdateLocations().
+        // but if we already called this and there's no change in GPS location, there will be no updates, so didUpdateLocations() will not get called.
         
+        // Method 2: call locationManager.stopUpdatingLocation()
+        locationManager.requestLocation()
+    }
+}
+
+// MARK: - UITextField Delegate
+extension MainVC: UITextFieldDelegate {
+    @IBAction func SearchLocationButtonPressed(_ sender: Any) {
+
+        print("Input by Press: " + searchTextField.text!)
+        searchTextField.endEditing(true)
+        animateSearchFieldView()
     }
     
     private func animateSearchFieldView() {
@@ -142,7 +159,7 @@ class MainVC: UIViewController {
             self.searchButtonViewWidth.constant = CGFloat(40)
             self.searchTextFieldWidth.constant = CGFloat(0)
             self.searchTextField.isHidden = true
-                self.searchTextField.placeholder = ""
+//            self.searchTextField.placeholder = ""
             
         } else {
             let newSearchButtonViewWidth = view.layer.frame.width - (resetButtonView.frame.maxX + safeAreaMargin)
@@ -155,7 +172,7 @@ class MainVC: UIViewController {
             self.searchTextFieldWidth.constant = CGFloat(newSearchFieldWidth)
             
             Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { Timer in
-                    self.searchTextField.placeholder = " Look up weather by city name"
+                self.searchTextField.placeholder = " Look up weather by city name"
             }
         }
         
@@ -163,13 +180,40 @@ class MainVC: UIViewController {
         
         UIView.animate(withDuration: 1) {
             self.view.layoutIfNeeded()
-       }
+        }
     }
- }
-
-// MARK: - UITextField Delegate
-extension MainVC: UITextFieldDelegate {
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("Input by Return Key: " + searchTextField.text!)
+        searchTextField.endEditing(true)
+        return true // does it make a difference?
+        
+    }
+    
+    // good for validation
+    // why did I use "textField"?
+    // similar to having multiple UIButton outlets connected to the same action IBMethod, using the parameter name supports multiple.
+    // If we know for certain we are using the specific one (i.e. searchTextField), we can specifically call it instead.
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            return true
+        } else {
+            textField.placeholder = "Make sure to enter a city!"
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // get weather data using the input search text
+        // optionally bind the cityName
+        print("Did end editing!")
+        if let cityName = searchTextField.text {
+            weatherManager.fetchWeather(from: cityName)
+        }
+        
+        // reset search field
+        searchTextField.text = ""
+    }
 }
 
 // MARK: - UICollectionView DataSource
@@ -185,7 +229,7 @@ extension MainVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dailyWeatherCollectionView.dequeueReusableCell(withReuseIdentifier: K.cellIdentifier, for: indexPath) as! DailyWeatherCell
-
+        
         return cell
     }
     
@@ -202,5 +246,51 @@ extension MainVC: UICollectionViewDelegateFlowLayout {
 extension MainVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
+}
+
+// MARK: - WeatherManagerDelegate
+
+extension MainVC: WeatherManagerDelegate {
+    // the first parameter of delegate function convention: identify of the object: _ weatherManager: WeatherManager
+//    func didUpdateWeather(weather: WeatherModel) {
+    func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
+//        print(weather.temperature)
+        DispatchQueue.main.async {
+            self.currentTempLabel.text = weather.tempString
+            self.cityLabel.text = weather.cityName
+//            self.conditi
+//            image = UIImage(systemName: weather.conditionName)
+        }
+        
+    }
+    
+    func didFailWithError(error: Error) {
+        // In this case, the error is most likely going to be internal --> just print it for debugging purpose.
+        // Soemtimes, you might need to display the error message to the user for troubleshooting.
+        print(error)
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+
+extension MainVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        print("Location detected!")
+        
+        if let latestLocation = locations.last {
+            
+            locationManager.stopUpdatingLocation()
+            
+            let latitude = latestLocation.coordinate.latitude
+            let longitude = latestLocation.coordinate.longitude
+//            print(latitude)
+//            print(longitude)
+            weatherManager.fetchWeather(latitude: latitude, Longitude: longitude)
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 }
