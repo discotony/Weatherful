@@ -354,8 +354,14 @@ extension MainVC: WeatherManagerDelegate {
             self.conditionLabel.text = weather.conditionDescription
             self.currentTempLabel.text = weather.tempString
             self.maxMinTempLabel.text = "H: \(weather.temp_max)°F  L: \(weather.temp_min)°F"
-//            self.backgroundImageView.image = UIImage(named: weather.conditionName)
-            self.backgroundImageView.image = UIImage.animatedGif(named: weather.conditionName)
+            //            self.backgroundImageView.image = UIImage(named: weather.conditionName)
+            print(weather.conditionName)
+            
+            if weather.conditionName == "sun_max" || weather.conditionName == "cloud_bolt" {
+                self.backgroundImageView.image = UIImage.animatedGif(named: weather.conditionName)
+            } else {
+                self.backgroundImageView.image = UIImage(named: weather.conditionName)
+            }
             self.collapseSearchBar()
             self.view.removeBluerLoader()
         }
