@@ -13,11 +13,15 @@ class MainVC: UIViewController {
     @IBOutlet weak var overlayView: UIView!
     
     
-    @IBOutlet weak var currentLocationButtonView: UIView!
-    @IBOutlet weak var currentLocationButton: UIButton!
-    @IBOutlet weak var searchLocationButtonView: UIView!
-    @IBOutlet weak var searchLocationButtonViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var searchLocationButton: UIButton!
+    @IBOutlet weak var resetButtonView: UIView!
+    @IBOutlet weak var resetLocationButton: UIButton!
+    @IBOutlet weak var searchButtonView: UIView!
+    @IBOutlet weak var searchButtonViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var searchButton: UIButton!
+    
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var searchTextFieldWidth: NSLayoutConstraint!
+    
     @IBOutlet weak var cityLabel: UILabel!
     
     @IBOutlet weak var currentTempLabel: UILabel!
@@ -25,20 +29,19 @@ class MainVC: UIViewController {
     @IBOutlet weak var maxMinTempLabel: UILabel!
     
     
-    @IBOutlet weak var hourlyWeatherBackgroundView: UIView!
-    
+    @IBOutlet weak var dailyWeatherBackgroundView: UIView!
+    @IBOutlet weak var dailyWeatherHeaderLabel: UILabel!
+    @IBOutlet weak var dailyWeatherHeaaderDivider: UIView!
+    @IBOutlet weak var dailyWeatherCollectionView: UICollectionView!
     
     private var shouldCollapse = false
-//    var buttonTitle: String {
-//    return shouldCollapse ? "Show Less" : "Show More"
-//    }
-    
-    
+
+    var dataArray = ["Sunday", "sun", "72°F", "40F°"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
         setUpPlaceHolders()
-        
     }
 
     private func setUpUI() {
@@ -46,32 +49,75 @@ class MainVC: UIViewController {
         backgroundImageView.contentMode = .scaleAspectFill
 //        backgroundImageView.applyBlurEffect()
         overlayView.backgroundColor = .clear
-//        overlayView.applyBlurEffect()
+
+        setUpHeaderSection()
+        setUpConditionSection()
+        setUpDailyWeatherSection()
+    }
+    
+    private func setUpHeaderSection() {
+        resetButtonView.backgroundColor = .customWhite.withAlphaComponent(0.5)
+        resetButtonView.circularize()
+        resetButtonView.applyDarkShadow()
+        resetLocationButton.tintColor = .customBlack
         
-//        expandableSearchView.backgroundColor = .customWhite.withAlphaComponent(0.75)
-//        expandableSearchView.roundCorners(cornerRadius: 20)
+        searchButtonView.backgroundColor = .customWhite.withAlphaComponent(0.5)
+        searchButtonView.roundCorners(cornerRadius: 20)
+        searchButtonView.applyDarkShadow()
+        searchButton.tintColor = .customBlack
         
-        currentLocationButtonView.backgroundColor = .customWhite.withAlphaComponent(0.75)
-        currentLocationButtonView.circularize()
-        currentLocationButtonView.applyShadow()
-        currentLocationButton.tintColor = .customBlack
+        searchTextField.backgroundColor = UIColor.clear
+        searchTextField.borderStyle = .none
+        searchTextField.tintColor = .customDarkGrey
+        searchTextField.font = CustomFonts.captionMedium
+        searchTextField.textColor = .customBlack
+    }
+    
+    private func setUpConditionSection() {
+        cityLabel.configure(font: CustomFonts.captionLarge!, color: .customBlack)
         
-        searchLocationButtonView.backgroundColor = .customWhite.withAlphaComponent(0.75)
-        searchLocationButtonView.roundCorners(cornerRadius: 20)
-        searchLocationButtonView.applyShadow()
-        searchLocationButton.tintColor = .customBlack
-        cityLabel.configure(font: CustomFonts.captionMedium!, color: .customBlack)
         
         currentTempLabel.configure(font: CustomFonts.titleXL!)
-        conditionLabel.configure(font: CustomFonts.captionMedium!)
-        maxMinTempLabel.configure(font: CustomFonts.captionMedium!)
+        conditionLabel.configure(font: CustomFonts.captionLarge!)
+        maxMinTempLabel.configure(font: CustomFonts.captionLarge!)
+    }
+    
+    private func setUpDailyWeatherSection() {
+        dailyWeatherBackgroundView.backgroundColor = .customWhite.withAlphaComponent(0.5)
+        dailyWeatherBackgroundView.applyDarkShadow()
+        dailyWeatherBackgroundView.roundCorners(cornerRadius: 25.0)
+        dailyWeatherCollectionView.backgroundColor = .clear
         
-        hourlyWeatherBackgroundView.backgroundColor = .customLightGrey.withAlphaComponent(0.2)
-        hourlyWeatherBackgroundView.roundCorners(cornerRadius: 25.0)
-//        hourlyWeatherBackgroundView.layer.borderWidth = 2.0
-        
- 
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = UIImage(systemName: "calendar")?.withTintColor(.customBlack)
 
+        dailyWeatherHeaderLabel.configure(font: CustomFonts.captionMedium!)
+        let headerTitle = NSMutableAttributedString(string: " Weekly Forecast")
+        headerTitle.insert(NSAttributedString(attachment: imageAttachment), at: 0)
+        dailyWeatherHeaderLabel.attributedText = headerTitle
+        
+        dailyWeatherHeaaderDivider.backgroundColor = .customBlack
+        dailyWeatherHeaaderDivider.roundCorners(cornerRadius: 1)
+        
+        dailyWeatherCollectionView.dataSource = self
+        dailyWeatherCollectionView.delegate = self
+        dailyWeatherCollectionView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellWithReuseIdentifier: K.cellIdentifier)
+       
+        dailyWeatherCollectionView.showsHorizontalScrollIndicator = false
+        dailyWeatherCollectionView.isScrollEnabled = true
+//        dailyWeatherCollectionView.delaysContentTouches = false
+        dailyWeatherCollectionView.collectionViewLayout = setFlowLayout()
+        
+        
+        
+    }
+    
+    private func setFlowLayout() -> UICollectionViewFlowLayout {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+//        flowLayout.minimumLineSpacing = 160
+//        flowLayout.footerReferenceSize = CGSize(width: view.bounds.width, height: 0)
+        return flowLayout
     }
     
     
@@ -81,30 +127,80 @@ class MainVC: UIViewController {
         currentTempLabel.text = "72°F"
         conditionLabel.text = "Mostly Clear"
         maxMinTempLabel.text = "H: 75°F L: 56°F"
-        
-
     }
     
     // MARK: - UIActions
     @IBAction func SearchLocationButtonPressed(_ sender: Any) {
-        let newWidth = view.layer.frame.width - (currentLocationButtonView.frame.maxX + 32)
+        animateSearchFieldView()
         
-        if shouldCollapse {
-            animateView(isCollapsed: false, widthConstraint: 0)
-            } else {
-                animateView(isCollapsed: true, widthConstraint: newWidth)
-            }
     }
     
-    private func animateView(isCollapsed: Bool, widthConstraint: Double) {
-        shouldCollapse = isCollapsed
-    
+    private func animateSearchFieldView() {
+        let safeAreaMargin: CGFloat = 32
         
-        searchLocationButtonViewWidth.constant = CGFloat(widthConstraint)
+        if shouldCollapse {
+            self.searchButtonViewWidth.constant = CGFloat(40)
+            self.searchTextFieldWidth.constant = CGFloat(0)
+            self.searchTextField.isHidden = true
+                self.searchTextField.placeholder = ""
+            
+        } else {
+            let newSearchButtonViewWidth = view.layer.frame.width - (resetButtonView.frame.maxX + safeAreaMargin)
+            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { Timer in
+                self.searchTextField.isHidden = false
+            }
+            let newSearchFieldWidth = view.layer.frame.width - (resetButtonView.frame.width + 72 + safeAreaMargin)
+            
+            self.searchButtonViewWidth.constant = CGFloat(newSearchButtonViewWidth)
+            self.searchTextFieldWidth.constant = CGFloat(newSearchFieldWidth)
+            
+            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { Timer in
+                    self.searchTextField.placeholder = " Look up weather by city name"
+            }
+        }
         
+        shouldCollapse = !shouldCollapse
         
         UIView.animate(withDuration: 1) {
             self.view.layoutIfNeeded()
        }
+    }
+ }
+
+// MARK: - UITextField Delegate
+extension MainVC: UITextFieldDelegate {
+    
+}
+
+// MARK: - UICollectionView DataSource
+
+extension MainVC: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 6
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = dailyWeatherCollectionView.dequeueReusableCell(withReuseIdentifier: K.cellIdentifier, for: indexPath) as! DailyWeatherCell
+
+        return cell
+    }
+    
+}
+
+// MARK: - UICollectionView Delegate FlowLayout
+extension MainVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 64, height: dailyWeatherBackgroundView.frame.height - 38)
+    }
+}
+
+// MARK: - UICollectionView Delegate
+extension MainVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
 }
