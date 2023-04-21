@@ -34,12 +34,12 @@ struct CustomFonts {
      */
     
     static let titleXL = UIFont(name: "SFProRounded-Bold", size: 102.0)
-    
+    static let titleSmall = UIFont(name: "SFProRounded-Medium", size: 14.0)
     // MARK: - City Label
     static let captionLarge = UIFont(name: "SFProRounded-Medium", size: 20.0)
-    static let captionMedium = UIFont(name: "SFProRounded-Medium", size: 16.0)
+    static let captionMedium = UIFont(name: "SFProRounded-Regular", size: 16.0)
     static let captionSmall = UIFont(name: "SFProRounded-Medium", size: 14.0)
-    static let titleSmall = UIFont(name: "SFProRounded-Bold", size: 16.0)
+//    static let titleSmall = UIFont(name: "SFProRounded-Bold", size: 16.0)
 
     /*
     // Feed: Name

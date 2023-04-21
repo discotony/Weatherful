@@ -18,10 +18,16 @@ struct WeatherData: Decodable {
 struct Main: Decodable {
     // property name should match with JSON property name
     let temp: Double
+    let temp_max: Double
+    let temp_min: Double
 }
 
 // weather type is an array
 struct Weather: Decodable {
     let id: Int
-    let description: String
+    let main: String
 }
+
+//struct City: Decodable {
+//    let name: String
+//}

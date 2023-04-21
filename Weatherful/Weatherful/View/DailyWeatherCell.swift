@@ -9,6 +9,8 @@ import UIKit
 
 class DailyWeatherCell: UICollectionViewCell {
 
+    @IBOutlet weak var overlayView: UIView!
+    
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var conditionImageView: UIImageView!
@@ -18,10 +20,12 @@ class DailyWeatherCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
-        setUpPlaceHolder()
+//        setUpPlaceHolder()
     }
     
     private func setUpUI() {
+        overlayView.roundCorners(cornerRadius: 20)
+        overlayView.backgroundColor = .customLightGrey.withAlphaComponent(0.25)
         dayLabel.configure(font: CustomFonts.captionSmall!)
         dateLabel.configure(font: CustomFonts.captionSmall!)
         conditionImageView.tintColor = .customBlack
@@ -29,12 +33,12 @@ class DailyWeatherCell: UICollectionViewCell {
         minTempLabel.configure(font: CustomFonts.captionSmall!)
     }
     
-    private func setUpPlaceHolder() {
-        dayLabel.text = "Sunday"
-        dateLabel.text = "4/20"
-        conditionImageView.image = UIImage(systemName: "sun.max")
-        maxTempLabel.text = "72°F"
-        minTempLabel.text = "40°F"
-    }
+//    private func setUpPlaceHolder() {
+//        dayLabel.text = "Sunday"
+//        dateLabel.text = "4/20"
+//        conditionImageView.image = UIImage(systemName: "sun.max")
+//        maxTempLabel.text = "72°F"
+//        minTempLabel.text = "40°F"
+//    }
 
 }

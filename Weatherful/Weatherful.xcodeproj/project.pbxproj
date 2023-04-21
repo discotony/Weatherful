@@ -53,6 +53,8 @@
 		04C1122929F22AB100119130 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122829F22AB100119130 /* WeatherManager.swift */; };
 		04C1122B29F22ABC00119130 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122A29F22ABC00119130 /* WeatherModel.swift */; };
 		04C1122E29F22AEA00119130 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122D29F22AEA00119130 /* WeatherData.swift */; };
+		04C1123029F23F1E00119130 /* ForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122F29F23F1E00119130 /* ForecastData.swift */; };
+		04C1123229F2687100119130 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1123129F2687100119130 /* Forecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,8 @@
 		04C1122829F22AB100119130 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherManager.swift; path = Weatherful/Model/WeatherManager.swift; sourceTree = SOURCE_ROOT; };
 		04C1122A29F22ABC00119130 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherModel.swift; path = Weatherful/Model/WeatherModel.swift; sourceTree = SOURCE_ROOT; };
 		04C1122D29F22AEA00119130 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		04C1122F29F23F1E00119130 /* ForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastData.swift; sourceTree = "<group>"; };
+		04C1123129F2687100119130 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,7 +241,9 @@
 			children = (
 				04C1122829F22AB100119130 /* WeatherManager.swift */,
 				04C1122D29F22AEA00119130 /* WeatherData.swift */,
+				04C1122F29F23F1E00119130 /* ForecastData.swift */,
 				04C1122A29F22ABC00119130 /* WeatherModel.swift */,
+				04C1123129F2687100119130 /* Forecast.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -403,6 +409,8 @@
 			files = (
 				04C1117F29F0F35B00119130 /* MainVC.swift in Sources */,
 				04C111B529F1242A00119130 /* UILabel+Weatherful.swift in Sources */,
+				04C1123229F2687100119130 /* Forecast.swift in Sources */,
+				04C1123029F23F1E00119130 /* ForecastData.swift in Sources */,
 				04C1122929F22AB100119130 /* WeatherManager.swift in Sources */,
 				04C111B729F1248300119130 /* CustomFonts.swift in Sources */,
 				04C111B029F11A7900119130 /* UIColor+Weatherful.swift in Sources */,

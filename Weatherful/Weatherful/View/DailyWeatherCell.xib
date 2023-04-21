@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,6 +17,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="151" height="182"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAn-FE-S2b">
+                        <rect key="frame" x="0.0" y="0.0" width="151" height="166"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NuB-uM-2yM">
                         <rect key="frame" x="55" y="16" width="41.333333333333343" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -52,8 +57,11 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstItem="Iex-75-Tvn" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="AXF-kx-ueJ"/>
+                <constraint firstItem="BAn-FE-S2b" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="AfU-Eb-q2j"/>
                 <constraint firstItem="Ubj-pF-7jU" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="AhA-2b-Hg9"/>
                 <constraint firstItem="Iex-75-Tvn" firstAttribute="top" secondItem="Ubj-pF-7jU" secondAttribute="bottom" constant="16" id="IXd-sG-sUv"/>
+                <constraint firstAttribute="bottom" secondItem="BAn-FE-S2b" secondAttribute="bottom" constant="16" id="O9Q-Pu-42X"/>
+                <constraint firstItem="BAn-FE-S2b" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Rgn-78-m7I"/>
                 <constraint firstItem="NuB-uM-2yM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="16" id="bXp-4b-L64"/>
                 <constraint firstItem="mqN-ou-CEZ" firstAttribute="top" secondItem="Iex-75-Tvn" secondAttribute="bottom" constant="4" id="c2F-tY-uR4"/>
                 <constraint firstItem="Zg0-bx-hhz" firstAttribute="top" secondItem="NuB-uM-2yM" secondAttribute="bottom" constant="4" id="pHu-Xb-SLJ"/>
@@ -61,6 +69,7 @@
                 <constraint firstItem="Ubj-pF-7jU" firstAttribute="top" secondItem="Zg0-bx-hhz" secondAttribute="bottom" constant="16" id="u7c-28-u3v"/>
                 <constraint firstItem="NuB-uM-2yM" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="vmq-2I-ZBH"/>
                 <constraint firstItem="Zg0-bx-hhz" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="xd4-2L-KJg"/>
+                <constraint firstAttribute="trailing" secondItem="BAn-FE-S2b" secondAttribute="trailing" id="zRm-de-iHT"/>
             </constraints>
             <size key="customSize" width="151" height="182"/>
             <connections>
@@ -69,8 +78,14 @@
                 <outlet property="dayLabel" destination="NuB-uM-2yM" id="hRc-n7-qnU"/>
                 <outlet property="maxTempLabel" destination="Iex-75-Tvn" id="Q8L-Ue-d0P"/>
                 <outlet property="minTempLabel" destination="mqN-ou-CEZ" id="N0Y-5g-f4Q"/>
+                <outlet property="overlayView" destination="BAn-FE-S2b" id="7ZK-va-Zwm"/>
             </connections>
             <point key="canvasLocation" x="16.030534351145036" y="65.492957746478879"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

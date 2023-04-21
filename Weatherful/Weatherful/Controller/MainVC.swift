@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import AudioToolbox
 
 class MainVC: UIViewController {
     
@@ -36,15 +37,18 @@ class MainVC: UIViewController {
     @IBOutlet weak var dailyWeatherCollectionView: UICollectionView!
     
     private var shouldCollapse = false
+    private var shouldSearch = false
     
     var dataArray = ["Sunday", "sun", "72°F", "40F°"]
     var weatherManager = WeatherManager()
     let locationManager = CLLocationManager()
+    var forecastArray = [DailyForecastModel]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        setUpPlaceHolders()
+        //        setUpPlaceHolders()
         weatherManager.delegate = self
         searchTextField.delegate = self
         dailyWeatherCollectionView.dataSource = self
@@ -53,7 +57,18 @@ class MainVC: UIViewController {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        //        hideKeyboardWhenTappedAround()
     }
+    
+//    func hideKeyboardWhenTappedAround() {
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+//        //        tap.cancelsTouchesInView = false
+//        self.view.addGestureRecognizer(tap)
+//    }
+//
+//    @objc func dismissKeyboard() {
+//        self.view.endEditing(true)
+//    }
     
     private func setUpUI() {
         backgroundImageView.image = UIImage(named: "cloud.rain")
@@ -73,7 +88,7 @@ class MainVC: UIViewController {
         resetLocationButton.tintColor = .customBlack
         
         searchButtonView.backgroundColor = .customWhite.withAlphaComponent(0.5)
-        searchButtonView.roundCorners(cornerRadius: 20)
+        searchButtonView.roundCorners(cornerRadius: 27)
         searchButtonView.applyDarkShadow()
         searchButton.tintColor = .customBlack
         
@@ -96,20 +111,20 @@ class MainVC: UIViewController {
     private func setUpDailyWeatherSection() {
         dailyWeatherBackgroundView.backgroundColor = .customWhite.withAlphaComponent(0.5)
         dailyWeatherBackgroundView.applyDarkShadow()
-        dailyWeatherBackgroundView.roundCorners(cornerRadius: 25.0)
+        dailyWeatherBackgroundView.roundCorners(cornerRadius: 20.0)
         dailyWeatherCollectionView.backgroundColor = .clear
         
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(systemName: "calendar")?.withTintColor(.customBlack)
         
         dailyWeatherHeaderLabel.configure(font: CustomFonts.captionMedium!)
-        let headerTitle = NSMutableAttributedString(string: " Weekly Forecast")
+        let headerTitle = NSMutableAttributedString(string: " 5-DAY FORECAST")
         headerTitle.insert(NSAttributedString(attachment: imageAttachment), at: 0)
         dailyWeatherHeaderLabel.attributedText = headerTitle
         
         dailyWeatherHeaaderDivider.backgroundColor = .customBlack
         dailyWeatherHeaaderDivider.roundCorners(cornerRadius: 1)
-
+        
         dailyWeatherCollectionView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellWithReuseIdentifier: K.cellIdentifier)
         
         dailyWeatherCollectionView.showsHorizontalScrollIndicator = false
@@ -126,13 +141,13 @@ class MainVC: UIViewController {
         return flowLayout
     }
     
-    
-    private func setUpPlaceHolders() {
-        cityLabel.text = "San Francisco, CA"
-        currentTempLabel.text = "72°F"
-        conditionLabel.text = "Mostly Clear"
-        maxMinTempLabel.text = "H: 75°F L: 56°F"
-    }
+    //
+    //    private func setUpPlaceHolders() {
+    //        cityLabel.text = "San Francisco, CA"
+    //        currentTempLabel.text = "72°F"
+    //        conditionLabel.text = "Mostly Clear"
+    //        maxMinTempLabel.text = "H: 75°F L: 56°F"
+    //    }
     
     @IBAction func resetLocationButtonPressed(_ sender: UIButton) {
         // Method 1: we could possibly call "locationManager.requestLocation()" again as it automatically triggers didUpdateLocations().
@@ -146,49 +161,78 @@ class MainVC: UIViewController {
 // MARK: - UITextField Delegate
 extension MainVC: UITextFieldDelegate {
     @IBAction func SearchLocationButtonPressed(_ sender: Any) {
+        
 
         print("Input by Press: " + searchTextField.text!)
-        searchTextField.endEditing(true)
+        
+        if searchTextField.text == "" {
+            shouldSearch = false
+        } else {
+            shouldSearch = true
+        }
         animateSearchFieldView()
+//        searchTextField.resignFirstResponder()
     }
     
     private func animateSearchFieldView() {
-        let safeAreaMargin: CGFloat = 32
-        
         if shouldCollapse {
-            self.searchButtonViewWidth.constant = CGFloat(40)
-            self.searchTextFieldWidth.constant = CGFloat(0)
-            self.searchTextField.isHidden = true
-//            self.searchTextField.placeholder = ""
-            
+            collapseSearchBar()
         } else {
-            let newSearchButtonViewWidth = view.layer.frame.width - (resetButtonView.frame.maxX + safeAreaMargin)
-            Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { Timer in
-                self.searchTextField.isHidden = false
-            }
-            let newSearchFieldWidth = view.layer.frame.width - (resetButtonView.frame.width + 72 + safeAreaMargin)
-            
-            self.searchButtonViewWidth.constant = CGFloat(newSearchButtonViewWidth)
-            self.searchTextFieldWidth.constant = CGFloat(newSearchFieldWidth)
-            
-            Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { Timer in
-                self.searchTextField.placeholder = " Look up weather by city name"
+            expandSearchBar()
+            UIView.animate(withDuration: 1) {
+                self.view.layoutIfNeeded()
             }
         }
         
         shouldCollapse = !shouldCollapse
         
-        UIView.animate(withDuration: 1) {
-            self.view.layoutIfNeeded()
+    }
+    
+    private func collapseSearchBar() {
+        self.searchButtonViewWidth.constant = CGFloat(52)
+        self.searchTextFieldWidth.constant = CGFloat(0)
+        
+//        self.searchTextField.resignFirstResponder()
+        self.searchTextField.isHidden = true
+        //        self.searchTextField.resignFirstResponder()
+        self.searchTextField.placeholder = ""
+//        print(self.searchTextField.resignFirstResponder())
+        self.view.endEditing(true) // BLAKE
+        print(self.view.endEditing(true))
+    }
+    
+    private func expandSearchBar() {
+        let safeAreaMargin: CGFloat = 32
+        let newSearchButtonViewWidth = view.layer.frame.width - (resetButtonView.frame.maxX + safeAreaMargin)
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { Timer in
+            self.searchTextField.isHidden = false
         }
+        let newSearchFieldWidth = view.layer.frame.width - (resetButtonView.frame.width + 72 + 20 + safeAreaMargin)
+        
+        self.searchButtonViewWidth.constant = CGFloat(newSearchButtonViewWidth)
+        self.searchTextFieldWidth.constant = CGFloat(newSearchFieldWidth)
+        
+        Timer.scheduledTimer(withTimeInterval: 0.8, repeats: false) { Timer in
+            //            self.searchTextField.placeholder = " Look up weather by city name"
+            self.searchTextField.attributedPlaceholder = NSAttributedString(string: " Look up weather by city name", attributes: [NSAttributedString.Key.foregroundColor : UIColor.placeholderGrey, NSAttributedString.Key.font : CustomFonts.captionMedium!])
+        }
+        self.searchTextField.becomeFirstResponder()
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("Input by Return Key: " + searchTextField.text!)
-        searchTextField.endEditing(true)
+        if searchTextField.text == "" {
+            shouldSearch = false
+        } else {
+            shouldSearch = true
+        }
+        self.view.endEditing(true)
+        //        searchTextField.resignFirstResponder()
         return true // does it make a difference?
         
     }
+    
     
     // good for validation
     // why did I use "textField"?
@@ -196,9 +240,11 @@ extension MainVC: UITextFieldDelegate {
     // If we know for certain we are using the specific one (i.e. searchTextField), we can specifically call it instead.
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.text != "" {
+//            self.view.endEditing(true)
+//            self.searchTextField.resignFirstResponder()
             return true
         } else {
-            textField.placeholder = "Make sure to enter a city!"
+            textField.placeholder = "Make sure to enter a city name!"
             return false
         }
     }
@@ -207,12 +253,24 @@ extension MainVC: UITextFieldDelegate {
         // get weather data using the input search text
         // optionally bind the cityName
         print("Did end editing!")
-        if let cityName = searchTextField.text {
-            weatherManager.fetchWeather(from: cityName)
+        print(shouldSearch)
+        print(shouldSearch)
+        print(shouldSearch)
+        print(shouldSearch)
+//        if shouldSearch {
+            if let cityName = searchTextField.text {
+                let formattedCityName = String((cityName as NSString).replacingOccurrences(of: " ", with: "+"))
+                //            containsPlacemark.locality?.replacingOccurrences(of: " ", with: "_")
+                //            cityName.locality?.replacingOccurrences(of: " ", with: "_")
+                weatherManager.fetchWeather(from: formattedCityName)
+                weatherManager.fetchForecast(from: formattedCityName)
+//            }
         }
         
         // reset search field
         searchTextField.text = ""
+        //        searchTextField.resignFirstResponder()
+        
     }
 }
 
@@ -224,12 +282,26 @@ extension MainVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return forecastArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dailyWeatherCollectionView.dequeueReusableCell(withReuseIdentifier: K.cellIdentifier, for: indexPath) as! DailyWeatherCell
+        //        print(dateString)
+        //        print(dayString)
         
+        if indexPath.row % 2 == 0 {
+            cell.overlayView.isHidden = true
+        } else {
+            cell.overlayView.isHidden = false
+        }
+        
+        let forecast = forecastArray[indexPath.row]
+        cell.dayLabel.text = forecast.day + " " + forecast.date
+        cell.dateLabel.text = "3:00 PM"
+        cell.conditionImageView.image = UIImage(systemName: forecast.conditionName)
+        cell.maxTempLabel.text = "\(forecast.max_temp)°F"
+        cell.minTempLabel.text = "\(forecast.min_temp)°F"
         return cell
     }
     
@@ -238,7 +310,7 @@ extension MainVC: UICollectionViewDataSource {
 // MARK: - UICollectionView Delegate FlowLayout
 extension MainVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 64, height: dailyWeatherBackgroundView.frame.height - 38)
+        return CGSize(width: 80, height: dailyWeatherBackgroundView.frame.height - 52)
     }
 }
 
@@ -253,22 +325,51 @@ extension MainVC: UICollectionViewDelegate {
 
 extension MainVC: WeatherManagerDelegate {
     // the first parameter of delegate function convention: identify of the object: _ weatherManager: WeatherManager
-//    func didUpdateWeather(weather: WeatherModel) {
+    //    func didUpdateWeather(weather: WeatherModel) {
     func didUpdateWeather(_ weatherManager: WeatherManager, weather: WeatherModel) {
-//        print(weather.temperature)
+        //        print(weather.temperature)
         DispatchQueue.main.async {
-            self.currentTempLabel.text = weather.tempString
             self.cityLabel.text = weather.cityName
-//            self.conditi
-//            image = UIImage(systemName: weather.conditionName)
+            self.conditionLabel.text = weather.conditionDescription
+            self.currentTempLabel.text = weather.tempString
+            self.maxMinTempLabel.text = "H: \(weather.temp_max)°F  L: \(weather.temp_min)°F"
+            self.collapseSearchBar()
         }
-        
     }
+    
+    func didUpdateForecast(_ weatherManager: WeatherManager, forecastArray: [DailyForecastModel]) {
+        DispatchQueue.main.async {
+            self.forecastArray = forecastArray
+            self.dailyWeatherCollectionView.reloadData()
+            self.collapseSearchBar()
+        }
+    }
+    
     
     func didFailWithError(error: Error) {
         // In this case, the error is most likely going to be internal --> just print it for debugging purpose.
         // Soemtimes, you might need to display the error message to the user for troubleshooting.
         print(error)
+        DispatchQueue.main.async {
+            self.searchTextField.attributedPlaceholder = NSAttributedString(string: "Please enter a valid city name!", attributes: [NSAttributedString.Key.foregroundColor : UIColor.red])
+            self.animateWarningShake()
+            self.searchTextField.becomeFirstResponder()
+            Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { Timer in
+                self.searchTextField.attributedPlaceholder = NSAttributedString(string: " Look up weather by city name", attributes: [NSAttributedString.Key.foregroundColor : UIColor.placeholderGrey, NSAttributedString.Key.font : CustomFonts.captionMedium!])
+            }
+        }
+    }
+    
+    private func animateWarningShake() {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 4
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: self.searchButtonView.center.x - 5, y: self.searchButtonView.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: self.searchButtonView.center.x + 5, y: self.searchButtonView.center.y))
+        
+        AudioServicesPlayAlertSoundWithCompletion(SystemSoundID(kSystemSoundID_Vibrate)) { }
+        self.searchButtonView.layer.add(animation, forKey: "position")
     }
 }
 
@@ -276,7 +377,7 @@ extension MainVC: WeatherManagerDelegate {
 
 extension MainVC: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        print("Location detected!")
+        //        print("Location detected!")
         
         if let latestLocation = locations.last {
             
@@ -284,9 +385,10 @@ extension MainVC: CLLocationManagerDelegate {
             
             let latitude = latestLocation.coordinate.latitude
             let longitude = latestLocation.coordinate.longitude
-//            print(latitude)
-//            print(longitude)
+            //            print(latitude)
+            //            print(longitude)
             weatherManager.fetchWeather(latitude: latitude, Longitude: longitude)
+            weatherManager.fetchForecast(latitude: latitude, Longitude: longitude)
         }
     }
     
