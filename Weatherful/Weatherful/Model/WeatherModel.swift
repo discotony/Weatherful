@@ -10,17 +10,28 @@ import Foundation
 struct WeatherModel {
     let conditionId: Int
     let cityName: String
-    let temperature: Double
+    let temp: Double
+    var temp_max: Double
+    let temp_min: Double
     
     var tempString: String {
-        return String(format: "%.1f", temperature)
+        return String(format: "%.1f", temp)
     }
     
-    // computed property: needs to be var as it gets computed all the time
-    // var computedProperty: type {
-    //      return statement
-    // }
-    
+    var conditionDescription: String
+}
+
+
+//struct ForecastModel {
+//    let forecastArray: [DailyForecastModel]
+//}
+
+struct DailyForecastModel {
+    let date: String
+    let day: String
+    let conditionId: Int
+    let max_temp: Double
+    let min_temp: Double
     var conditionName: String {
         switch conditionId {
         case 200...232:
