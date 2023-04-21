@@ -50,6 +50,9 @@
 		04C1122329F2162100119130 /* DailyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122129F2162100119130 /* DailyWeatherCell.swift */; };
 		04C1122429F2162100119130 /* DailyWeatherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04C1122229F2162100119130 /* DailyWeatherCell.xib */; };
 		04C1122729F21BBF00119130 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122629F21BBF00119130 /* Constants.swift */; };
+		04C1122929F22AB100119130 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122829F22AB100119130 /* WeatherManager.swift */; };
+		04C1122B29F22ABC00119130 /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122A29F22ABC00119130 /* WeatherModel.swift */; };
+		04C1122E29F22AEA00119130 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C1122D29F22AEA00119130 /* WeatherData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +102,9 @@
 		04C1122129F2162100119130 /* DailyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherCell.swift; sourceTree = "<group>"; };
 		04C1122229F2162100119130 /* DailyWeatherCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyWeatherCell.xib; sourceTree = "<group>"; };
 		04C1122629F21BBF00119130 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		04C1122829F22AB100119130 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherManager.swift; path = Weatherful/Model/WeatherManager.swift; sourceTree = SOURCE_ROOT; };
+		04C1122A29F22ABC00119130 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherModel.swift; path = Weatherful/Model/WeatherModel.swift; sourceTree = SOURCE_ROOT; };
+		04C1122D29F22AEA00119130 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +157,7 @@
 			children = (
 				04C1117A29F0F35B00119130 /* AppDelegate.swift */,
 				04C1117C29F0F35B00119130 /* SceneDelegate.swift */,
-				04C111B229F11AE000119130 /* Model */,
+				04C1122C29F22ACA00119130 /* Model */,
 				04C111B129F11AD600119130 /* View */,
 				04C111B329F11AE300119130 /* Controller */,
 				04C111AA29F11A2400119130 /* Extensions */,
@@ -202,13 +208,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		04C111B229F11AE000119130 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		04C111B329F11AE300119130 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +230,16 @@
 				04C111BD29F1261C00119130 /* SF-Pro-Rounded-Ultralight.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		04C1122C29F22ACA00119130 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04C1122829F22AB100119130 /* WeatherManager.swift */,
+				04C1122D29F22AEA00119130 /* WeatherData.swift */,
+				04C1122A29F22ABC00119130 /* WeatherModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,6 +403,7 @@
 			files = (
 				04C1117F29F0F35B00119130 /* MainVC.swift in Sources */,
 				04C111B529F1242A00119130 /* UILabel+Weatherful.swift in Sources */,
+				04C1122929F22AB100119130 /* WeatherManager.swift in Sources */,
 				04C111B729F1248300119130 /* CustomFonts.swift in Sources */,
 				04C111B029F11A7900119130 /* UIColor+Weatherful.swift in Sources */,
 				04C111AE29F11A4D00119130 /* UIView+Weatherful.swift in Sources */,
@@ -401,6 +411,8 @@
 				04C1122329F2162100119130 /* DailyWeatherCell.swift in Sources */,
 				04C1117D29F0F35B00119130 /* SceneDelegate.swift in Sources */,
 				04C1122729F21BBF00119130 /* Constants.swift in Sources */,
+				04C1122E29F22AEA00119130 /* WeatherData.swift in Sources */,
+				04C1122B29F22ABC00119130 /* WeatherModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
